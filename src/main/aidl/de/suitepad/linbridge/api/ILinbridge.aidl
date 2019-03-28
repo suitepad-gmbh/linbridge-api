@@ -26,7 +26,7 @@ interface ILinbridge {
      * registers an ILinSipListener, will override current listener if force is set to true
      * returns true if listener registration succeeded
      */
-    boolean forceRegisterSipListener(ILinSipListener listener);
+    void forceRegisterSipListener(ILinSipListener listener);
 
      /**
      * register an ILinSipListener, returns true if listener registration succeeeded
