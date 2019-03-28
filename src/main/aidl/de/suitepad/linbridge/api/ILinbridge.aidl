@@ -33,4 +33,9 @@ interface ILinbridge {
      */
     boolean registerSipListener(ILinSipListener listener);
 
+     /**
+     * stops the current service
+     */
+    void stopService();
+
 }
