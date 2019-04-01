@@ -8,18 +8,18 @@ public class SIPConfiguration implements Parcelable {
     /**
      * specify the microphone gain in dB, default is 0
      */
-    private int microphoneGain;
+    public int microphoneGain;
 
     /**
      * specify the speaker gain in dB, default is 0
      */
-    private int speakerGain;
+    public int speakerGain;
 
     /**
      * enable/disable aec, default is false. AEC uses the speaker signal as a reference and tries
      * to suppress it from the  input
      */
-    private boolean echoCancellation;
+    public boolean echoCancellation;
 
     /**
      * enable/disable echo limiter, if enabled microphone gain will be decreased by [microphoneDecrease] when the speaker
@@ -28,33 +28,35 @@ public class SIPConfiguration implements Parcelable {
      * <p>
      * echo limiter will be bypassed in case of double talk detection, [doubleTalkDetection]
      */
-    private boolean echoLimiter;
+    public boolean echoLimiter;
 
     /**
      * linear amount of microphone gain decrease when [echoLimiter] is active
      */
-    private int echoLimiterMicrophoneDecrease;
+    public int echoLimiterMicrophoneDecrease;
 
     /**
      * linear amount of speaker gain output to be reached to that [echoLimiter] decreases the microphone gain
      */
-    private float echoLimiterSpeakerThreshold;
+    public float echoLimiterSpeakerThreshold;
 
     /**
      * microphone gain decrease sustain when [echoLimiter] is active
      */
-    private int echoLimiterSustain;
+    public int echoLimiterSustain;
 
     /**
      * amount of micGain/speakerGain above which [echoLimiter] is automatically disabled
      */
-    private float echoLimiterDoubleTalkDetection;
+    public float echoLimiterDoubleTalkDetection;
 
     /**
      * list of enabled [Codec]s,
      * empty list or null for enabling all codecs
      */
-    String[] enabledCodecs;
+    public String[] enabledCodecs;
+
+
 
     protected SIPConfiguration(Parcel in) {
         microphoneGain = in.readInt();
