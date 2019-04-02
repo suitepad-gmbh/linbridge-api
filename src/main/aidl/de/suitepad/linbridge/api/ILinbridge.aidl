@@ -38,4 +38,9 @@ interface ILinbridge {
      */
     void stopService();
 
+     /**
+     * initiate call with destination address (could be a number as well as a sip address)
+     */
+    void call(String destination);
+
 }
