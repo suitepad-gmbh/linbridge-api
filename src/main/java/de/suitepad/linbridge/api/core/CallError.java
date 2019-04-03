@@ -9,6 +9,8 @@ public enum CallError implements Parcelable {
 
     NetworkUnreachable,
 
+    NoCallAvailable,
+
     AlreadyInCall;
 
     @Override

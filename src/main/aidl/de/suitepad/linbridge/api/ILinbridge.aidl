@@ -44,4 +44,8 @@ interface ILinbridge {
      */
     CallError call(String destination);
 
+    CallError answerCall();
+
+    CallError rejectCall();
+
 }
