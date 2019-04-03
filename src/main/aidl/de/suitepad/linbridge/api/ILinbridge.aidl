@@ -4,6 +4,7 @@ package de.suitepad.linbridge.api;
 // Declare any non-default types here with import statements
 import de.suitepad.linbridge.api.ILinbridgeListener;
 import de.suitepad.linbridge.api.SIPConfiguration;
+import de.suitepad.linbridge.api.core.CallError;
 
 interface ILinbridge {
 
@@ -41,6 +42,6 @@ interface ILinbridge {
      /**
      * initiate call with destination address (could be a number as well as a sip address)
      */
-    void call(String destination);
+    CallError call(String destination);
 
 }
