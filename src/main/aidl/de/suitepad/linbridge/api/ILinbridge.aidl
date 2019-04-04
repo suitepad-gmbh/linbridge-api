@@ -32,7 +32,7 @@ interface ILinbridge {
      /**
      * register an ILinSipListener, returns true if listener registration succeeeded
      */
-    boolean registerSipListener(ILinbridgeListener listener);
+    boolean startService(ILinbridgeListener listener);
 
      /**
      * stops the current service

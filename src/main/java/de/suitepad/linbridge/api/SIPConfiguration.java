@@ -56,7 +56,9 @@ public class SIPConfiguration implements Parcelable {
      */
     public String[] enabledCodecs;
 
+    public SIPConfiguration() {
 
+    }
 
     protected SIPConfiguration(Parcel in) {
         microphoneGain = in.readInt();
