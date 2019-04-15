@@ -5,13 +5,20 @@ package de.suitepad.linbridge.api;
 import de.suitepad.linbridge.api.ILinbridgeListener;
 import de.suitepad.linbridge.api.SIPConfiguration;
 import de.suitepad.linbridge.api.core.CallError;
+import de.suitepad.linbridge.api.core.AuthenticationState;
+import de.suitepad.linbridge.api.core.Credentials;
 
 interface ILinbridge {
 
      /**
      * authenticate to a sip server
      */
-    void authenticate(String host, int port, String username, String password, String proxy);
+    void authenticate(in Credentials credentials);
+
+    /**
+    * get currently used credentials
+    */
+    Credentials getCurrentCredentials();
 
      /**
      * update the current SIP client configuration
@@ -22,6 +29,11 @@ interface ILinbridge {
      * get current SIP configuration
      */
     SIPConfiguration getConfig();
+
+    /**
+     *  get the current authentication state
+     */
+    AuthenticationState getAuthenticationState();
 
      /**
      * registers an ILinSipListener, will override current listener if force is set to true
