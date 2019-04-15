@@ -5,11 +5,11 @@ import android.os.Parcelable;
 
 public class Credentials implements Parcelable {
 
-    String host;
-    int port = 5060;
-    String username;
-    String password;
-    String proxy;
+    private String host;
+    private int port = 5060;
+    private String username;
+    private String password;
+    private String proxy;
 
     public Credentials(String host, int port, String username, String password, String proxy) {
         this.host = host;
@@ -53,4 +53,44 @@ public class Credentials implements Parcelable {
             return new Credentials[size];
         }
     };
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getProxy() {
+        return proxy;
+    }
+
+    public void setProxy(String proxy) {
+        this.proxy = proxy;
+    }
 }
