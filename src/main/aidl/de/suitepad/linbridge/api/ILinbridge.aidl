@@ -55,6 +55,14 @@ interface ILinbridge {
 
     CallError rejectCall();
 
+     /**
+     * will send dtmf to current call and play dtmf sound until stopdtmf is called or another dtmf is sent
+     */
     void sendDtmf(char number);
+
+     /**
+     * will stop currently playing dtmf
+     */
+    void stopDtmf();
 
 }
