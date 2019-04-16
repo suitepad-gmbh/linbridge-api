@@ -55,4 +55,6 @@ interface ILinbridge {
 
     CallError rejectCall();
 
+    void sendDtmf(char number);
+
 }
