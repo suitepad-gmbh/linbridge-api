@@ -8,7 +8,7 @@ import de.suitepad.linbridge.api.SIPConfiguration;
 
 interface ILinbridgeListener {
 
-    void callStateChanged(in CallState callState, String farendId);
+    void callStateChanged(in CallState callState);
 
     void authenticationStateChanged(in AuthenticationState authenticationState);
 

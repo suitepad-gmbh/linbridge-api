@@ -8,113 +8,123 @@ public enum CallState implements Parcelable {
     /**
      * Initial state.
      */
-    Idle,
+    Idle(null, null),
 
     /**
      * Incoming call received.
      */
-    IncomingReceived,
+    IncomingReceived(null, null),
 
     /**
      * Outgoing call initialized.
      */
-    OutgoingInit,
+    OutgoingInit(null, null),
 
     /**
      * Outgoing call in progress.
      */
-    OutgoingProgress,
+    OutgoingProgress(null, null),
 
     /**
      * Outgoing call ringing.
      */
-    OutgoingRinging,
+    OutgoingRinging(null, null),
 
     /**
      * Outgoing call early media.
      */
-    OutgoingEarlyMedia,
+    OutgoingEarlyMedia(null, null),
 
     /**
      * Connected.
      */
-    Connected,
+    Connected(null, null),
 
     /**
      * Streams running.
      */
-    StreamsRunning,
+    StreamsRunning(null, null),
 
     /**
      * Pausing.
      */
-    Pausing,
+    Pausing(null, null),
 
     /**
      * Paused.
      */
-    Paused,
+    Paused(null, null),
 
     /**
      * Resuming.
      */
-    Resuming,
+    Resuming(null, null),
 
     /**
      * Referred.
      */
-    Referred,
+    Referred(null, null),
 
     /**
      * Error.
      */
-    Error,
+    Error(null, null),
 
     /**
      * Call end.
      */
-    End,
+    End(null, null),
 
     /**
      * Paused by remote.
      */
-    PausedByRemote,
+    PausedByRemote(null, null),
 
     /**
      * The call's parameters are updated for example when video is asked by remote.
      */
-    UpdatedByRemote,
+    UpdatedByRemote(null, null),
 
     /**
      * We are proposing early media to an incoming call.
      */
-    IncomingEarlyMedia,
+    IncomingEarlyMedia(null, null),
 
     /**
      * We have initiated a call update.
      */
-    Updating,
+    Updating(null, null),
 
     /**
      * The call object is now released.
      */
-    Released,
+    Released(null, null),
 
     /**
      * The call is updated by remote while not yet answered (SIP UPDATE in early
      * dialog received)
      */
-    EarlyUpdatedByRemote,
+    EarlyUpdatedByRemote(null, null),
 
     /**
      * We are updating the call while not yet answered (SIP UPDATE in early dialog
      * sent)
      */
-    EarlyUpdating;
+    EarlyUpdating(null, null);
+
+    public String number;
+    public String contactName;
+
+    CallState(String number, String contactName) {
+        this.number = number;
+        this.contactName = contactName;
+    }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name());
+        dest.writeString(number);
+        dest.writeString(contactName);
     }
 
     @Override
@@ -125,7 +135,10 @@ public enum CallState implements Parcelable {
     public static final Creator<CallState> CREATOR = new Creator<CallState>() {
         @Override
         public CallState createFromParcel(Parcel in) {
-            return CallState.valueOf(in.readString());
+            CallState callState = CallState.valueOf(in.readString());
+            callState.number = in.readString();
+            callState.contactName = in.readString();
+            return callState;
         }
 
         @Override
