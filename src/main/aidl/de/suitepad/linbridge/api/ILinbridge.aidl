@@ -70,4 +70,9 @@ interface ILinbridge {
      */
     void mute(boolean muted);
 
+     /**
+     * returns the current call duration or -1 if there's no current call
+     */
+    int getCurrentCallDuration();
+
 }
