@@ -65,4 +65,9 @@ interface ILinbridge {
      */
     void stopDtmf();
 
+     /**
+     * mute / unmute current call
+     */
+    void mute(boolean muted);
+
 }
