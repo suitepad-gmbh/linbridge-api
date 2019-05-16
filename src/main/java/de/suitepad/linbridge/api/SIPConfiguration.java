@@ -3,6 +3,8 @@ package de.suitepad.linbridge.api;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import de.suitepad.linbridge.api.core.AudioCodec;
+
 public class SIPConfiguration implements Parcelable {
 
     /**
@@ -54,7 +56,7 @@ public class SIPConfiguration implements Parcelable {
      * list of enabled [Codec]s,
      * empty list or null for enabling all codecs
      */
-    public String[] enabledCodecs;
+    public AudioCodec[] enabledCodecs;
 
     public SIPConfiguration() {
 
@@ -69,7 +71,11 @@ public class SIPConfiguration implements Parcelable {
         echoLimiterSpeakerThreshold = in.readFloat();
         echoLimiterSustain = in.readInt();
         echoLimiterDoubleTalkDetection = in.readFloat();
-        enabledCodecs = in.createStringArray();
+        String[] enabledCodecNames = in.createStringArray();
+        enabledCodecs = new AudioCodec[enabledCodecNames != null ? enabledCodecNames.length : 0];
+        for (int i = 0; i < enabledCodecs.length; i++) {
+            enabledCodecs[i] = AudioCodec.valueOf(enabledCodecNames[i]);
+        }
     }
 
     @Override
@@ -82,7 +88,11 @@ public class SIPConfiguration implements Parcelable {
         dest.writeFloat(echoLimiterSpeakerThreshold);
         dest.writeInt(echoLimiterSustain);
         dest.writeFloat(echoLimiterDoubleTalkDetection);
-        dest.writeStringArray(enabledCodecs);
+        String[] codecNames = new String[enabledCodecs != null ? enabledCodecs.length : 0];
+        for (int i = 0; i < codecNames.length; i++) {
+            codecNames[i] = enabledCodecs[i].name();
+        }
+        dest.writeStringArray(codecNames);
     }
 
     @Override
