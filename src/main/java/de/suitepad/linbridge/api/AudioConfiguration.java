@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import de.suitepad.linbridge.api.core.AudioCodec;
 
-public class SIPConfiguration implements Parcelable {
+public class AudioConfiguration implements Parcelable {
 
     /**
      * specify the microphone gain in dB, default is 0
@@ -58,11 +58,11 @@ public class SIPConfiguration implements Parcelable {
      */
     public AudioCodec[] enabledCodecs;
 
-    public SIPConfiguration() {
+    public AudioConfiguration() {
 
     }
 
-    protected SIPConfiguration(Parcel in) {
+    protected AudioConfiguration(Parcel in) {
         microphoneGain = in.readInt();
         speakerGain = in.readInt();
         echoCancellation = in.readByte() != 0;
@@ -100,15 +100,15 @@ public class SIPConfiguration implements Parcelable {
         return 0;
     }
 
-    public static final Creator<SIPConfiguration> CREATOR = new Creator<SIPConfiguration>() {
+    public static final Creator<AudioConfiguration> CREATOR = new Creator<AudioConfiguration>() {
         @Override
-        public SIPConfiguration createFromParcel(Parcel in) {
-            return new SIPConfiguration(in);
+        public AudioConfiguration createFromParcel(Parcel in) {
+            return new AudioConfiguration(in);
         }
 
         @Override
-        public SIPConfiguration[] newArray(int size) {
-            return new SIPConfiguration[size];
+        public AudioConfiguration[] newArray(int size) {
+            return new AudioConfiguration[size];
         }
     };
 

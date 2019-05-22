@@ -3,7 +3,7 @@ package de.suitepad.linbridge.api;
 
 // Declare any non-default types here with import statements
 import de.suitepad.linbridge.api.ILinbridgeListener;
-import de.suitepad.linbridge.api.SIPConfiguration;
+import de.suitepad.linbridge.api.AudioConfiguration;
 import de.suitepad.linbridge.api.core.CallError;
 import de.suitepad.linbridge.api.core.AuthenticationState;
 import de.suitepad.linbridge.api.core.Credentials;
@@ -24,12 +24,12 @@ interface ILinbridge {
      /**
      * update the current SIP client configuration
      */
-    void updateConfig(in SIPConfiguration configuration);
+    void updateConfig(in AudioConfiguration configuration);
 
      /**
      * get current SIP configuration
      */
-    SIPConfiguration getConfig();
+    AudioConfiguration getConfig();
 
     /**
      *  get the current authentication state
