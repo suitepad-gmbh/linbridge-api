@@ -7,6 +7,7 @@ import de.suitepad.linbridge.api.SIPConfiguration;
 import de.suitepad.linbridge.api.core.CallError;
 import de.suitepad.linbridge.api.core.AuthenticationState;
 import de.suitepad.linbridge.api.core.Credentials;
+import de.suitepad.linbridge.api.core.CallEndReason;
 
 interface ILinbridge {
 
@@ -74,5 +75,10 @@ interface ILinbridge {
      * returns the current call duration or -1 if there's no current call
      */
     int getCurrentCallDuration();
+
+     /**
+     * return last call end reason, call end reason is set to none when a new call is placed
+     */
+    CallEndReason getCallEndReason();
 
 }
