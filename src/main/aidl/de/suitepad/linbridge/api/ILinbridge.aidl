@@ -81,4 +81,9 @@ interface ILinbridge {
      */
     CallEndReason getCallEndReason();
 
+     /**
+     * sets the user id for debbuging purposes
+     */
+    void setUserId(String id);
+
 }
