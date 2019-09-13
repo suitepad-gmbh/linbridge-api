@@ -50,6 +50,12 @@ android {
 
 }
 
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    //classifier 'sources'
+    getArchiveClassifier().set('sources')
+}
+
 publishing {
     repositories {
         mavenRemote {
@@ -63,6 +69,7 @@ publishing {
             setGroupId("de.suitepad")
             setArtifactId("linbridge-api")
             version android.defaultConfig.versionName
+            artifact(sourceJar)
         }
     }
 }
