@@ -1,0 +1,185 @@
+# Java Gradle CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  build:
+    working_directory: ~/app
+    docker:
+      - image: circleci/android:api-28-alpha
+
+    environment:
+      JAVA_TOOL_OPTIONS: -Xmx4096m
+      LINT_PRINT_STACKTRACE: true
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}
+
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}
+
+      - run:
+          name: Compile
+          command: ./gradlew compileReleaseSources
+
+      # run lint
+      - run:
+          name: Run lint check
+          command: ./gradlew lintRelease
+
+      - run:
+          name: Save lint results
+          command: |
+            mkdir -p ~/lint/
+            find . -type f -regex ".*/build/reports/lint-results-release.html" -exec cp {} ~/lint/ \;
+            find . -type f -regex ".*/build/reports/lint-results-release.xml" -exec cp {} ~/lint/ \;
+          when: always
+
+      - store_artifacts:
+          path: ~/lint
+          destination: lint
+
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - build
+
+  test:
+    working_directory: ~/app
+    docker:
+      - image: circleci/android:api-28-alpha
+
+    environment:
+      JAVA_TOOL_OPTIONS: -Xmx4096m
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}
+
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}
+
+      - attach_workspace:
+          at: ./
+
+      # run lint
+      - run:
+          name: Run tests
+          command: ./gradlew testReleaseUnitTest
+
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/junit/
+            mkdir -p ~/junit_reports/
+            mkdir -p ~/junit_coverage/
+            find . -type f -regex ".*/build/test-results/.*/.*xml" -exec cp {} ~/junit/ \;
+            if [ -d ./build/reports/tests/testReleaseUnitTest ]; then
+              cp -r ./build/reports/tests/testReleaseUnitTest ~/junit_reports/
+            fi
+          when: always
+      - store_test_results:
+          path: ~/junit
+      - store_artifacts:
+          path: ~/junit
+          destination: test_xml
+      - store_artifacts:
+          path: ~/junit_reports
+          destination: test_results
+      - store_artifacts:
+          path: ~/junit_coverage
+          destination: test_coverage
+
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - build
+
+  deploy:
+    working_directory: ~/app
+    docker:
+      - image: circleci/android:api-28-alpha
+
+    environment:
+      JAVA_TOOL_OPTIONS: -Xmx4096m
+
+    steps:
+      - checkout
+      - run: git submodule update --init --recursive
+
+      # Download and cache dependencies
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}
+
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}
+
+      - attach_workspace:
+          at: ./
+
+      - run:
+          name: Deploy to backend
+          command: |
+            ./gradlew build
+            ./gradlew publish
+
+workflows:
+  version: 2
+  SuiteCommons:
+    jobs:
+      - build:
+          context: lib_public_deployment
+          filters:
+            tags:
+              only: /.*/
+      - test:
+          context: lib_public_deployment
+          requires:
+            - build
+          filters:
+            tags:
+              only: /.*/
+      - hold:
+          type: approval
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}.*/
+      - deploy:
+          context: lib_public_deployment
+          requires:
+            - hold
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}.*/
