@@ -1,13 +1,17 @@
 buildscript {
+    ext.kotlin_version = '1.3.50'
     repositories {
-        mavenCentral()
-        mavenLocal()
         google()
         jcenter()
+        mavenCentral()
+        mavenLocal()
+        maven { url 'https://suitepad.mycloudrepo.io/public/repositories/public' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'digital.wup:android-maven-publish:3.6.2'
+        classpath 'de.suitepad:gradletools:1.2.0-SNAPSHOT'
     }
 }
 
@@ -21,6 +25,8 @@ allprojects {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'digital.wup.android-maven-publish'
+apply plugin: 'suitepad-gradletools-repos'
 
 android {
     compileSdkVersion 28
@@ -42,6 +48,23 @@ android {
         }
     }
 
+}
+
+publishing {
+    repositories {
+        mavenRemote {
+            load "public"
+        }
+    }
+
+    publications {
+        mavenAar(MavenPublication) {
+            from components.android
+            setGroupId("de.suitepad")
+            setArtifactId("linbridge-api")
+            version android.defaultConfig.versionName
+        }
+    }
 }
 
 dependencies {
