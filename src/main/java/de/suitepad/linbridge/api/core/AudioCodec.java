@@ -9,7 +9,8 @@ public enum AudioCodec implements Parcelable {
     SPEEX_32K("speex", 32000),
     SPEEX_16K("speex", 16000),
     SPEEX_8K("speex", 8000),
-    OPUS("opus", 48000);
+    OPUS("opus", 48000),
+    G722("g722", 8000);
 
     private String mimeType;
     private int rate;
