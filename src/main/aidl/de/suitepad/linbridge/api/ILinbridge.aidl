@@ -86,4 +86,9 @@ interface ILinbridge {
      */
     void setUserId(String id);
 
+    /**
+    * returns true if microphone is muted
+    */
+    boolean isMuted();
+
 }
