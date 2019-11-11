@@ -53,6 +53,11 @@ public class AudioConfiguration implements Parcelable {
     public float echoLimiterDoubleTalkDetection;
 
     /**
+     * if set to true, linbridge will not ring when receiving an incoming call
+     */
+    public boolean shouldNotRing;
+
+    /**
      * list of enabled [Codec]s,
      * empty list or null for enabling all codecs
      */
@@ -76,6 +81,7 @@ public class AudioConfiguration implements Parcelable {
         for (int i = 0; i < enabledCodecs.length; i++) {
             enabledCodecs[i] = AudioCodec.valueOf(enabledCodecNames[i]);
         }
+        shouldNotRing = in.readByte() != 0;
     }
 
     @Override
@@ -93,6 +99,7 @@ public class AudioConfiguration implements Parcelable {
             codecNames[i] = enabledCodecs[i].name();
         }
         dest.writeStringArray(codecNames);
+        dest.writeByte((byte) (shouldNotRing ? 1 : 0));
     }
 
     @Override
