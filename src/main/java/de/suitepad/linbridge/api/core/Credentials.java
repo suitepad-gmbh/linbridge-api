@@ -10,14 +10,17 @@ public class Credentials implements Parcelable {
     private String username;
     private String password;
     private String proxy;
+    private String authId;
 
-    public Credentials(String host, int port, String username, String password, String proxy) {
+    public Credentials(String host, int port, String username, String password, String proxy,
+                       String authId) {
         this.host = host;
         if (port != 0)
             this.port = port;
         this.username = username;
         this.password = password;
         this.proxy = proxy;
+        this.authId = authId;
     }
 
     protected Credentials(Parcel in) {
@@ -26,6 +29,7 @@ public class Credentials implements Parcelable {
         username = in.readString();
         password = in.readString();
         proxy = in.readString();
+        authId = in.readString();
     }
 
     @Override
@@ -35,6 +39,7 @@ public class Credentials implements Parcelable {
         dest.writeString(username);
         dest.writeString(password);
         dest.writeString(proxy);
+        dest.writeString(authId);
     }
 
     @Override
@@ -93,4 +98,13 @@ public class Credentials implements Parcelable {
     public void setProxy(String proxy) {
         this.proxy = proxy;
     }
+
+    public String getAuthId() {
+        return authId;
+    }
+
+    public void setAuthId(String authId) {
+        this.authId = authId;
+    }
+
 }
