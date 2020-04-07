@@ -1,4 +1,7 @@
 # Changelog
+#### 1.1.0
+- FEAT: add authId to credentials
+
 #### 1.0.3
 - FEAT: client app can disable ringing
 
