@@ -6,6 +6,11 @@ import android.os.Parcelable;
 public enum AuthenticationState implements Parcelable {
 
     /**
+     * Initial state for registrations.
+     */
+    None,
+
+    /**
      * Registration is in progress.
      */
     Progress,
