@@ -1,4 +1,7 @@
 # Changelog
+#### 1.1.1
+- FIX: None enum missing
+
 #### 1.1.0
 - FEAT: add authId to credentials
 
