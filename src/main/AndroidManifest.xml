@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.suitepad.linbridge.api">
     <permission android:name="de.suitepad.linbridge.permission.BIND"
-        android:protectionLevel="signature" />
+        android:protectionLevel="normal" />
     <application>
     </application>
 
