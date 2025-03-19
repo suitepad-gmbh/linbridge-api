@@ -1,4 +1,8 @@
 # Changelog
+#### 1.1.2
+- FEAT: Upgrade to target SDK 30
+- FIX: None enum missing
+
 #### 1.1.0
 - FEAT: add authId to credentials
 
