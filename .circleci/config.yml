@@ -7,7 +7,7 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: circleci/android:api-28-alpha
+      - image: circleci/android:api-30
 
     environment:
       JAVA_TOOL_OPTIONS: -Xmx4096m
@@ -28,10 +28,6 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}
-
-      - run:
-        name: Accept Android SDK licenses
-        command: yes | sdkmanager --licenses || true
 
       - run:
           name: Compile
@@ -62,7 +58,7 @@ jobs:
   test:
     working_directory: ~/app
     docker:
-      - image: circleci/android:api-28-alpha
+      - image: circleci/android:api-30
 
     environment:
       JAVA_TOOL_OPTIONS: -Xmx4096m
@@ -122,7 +118,7 @@ jobs:
   deploy:
     working_directory: ~/app
     docker:
-      - image: circleci/android:api-28-alpha
+      - image: circleci/android:api-30
 
     environment:
       JAVA_TOOL_OPTIONS: -Xmx4096m
