@@ -1,4 +1,7 @@
 # Changelog
+#### 1.1.3
+- FIX: change protection level on bind permission
+
 #### 1.1.2
 - FEAT: Upgrade to target SDK 30
 - FIX: None enum missing
