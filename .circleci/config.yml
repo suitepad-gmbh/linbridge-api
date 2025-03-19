@@ -7,10 +7,11 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: circleci/android:api-28-alpha
+      - image: circleci/android:api-30
 
     environment:
-      JAVA_TOOL_OPTIONS: -Xmx4096m
+      JAVA_TOOL_OPTIONS: -Xmx2g
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false -Dkotlin.compiler.execution.strategy=in-process"
       LINT_PRINT_STACKTRACE: true
 
     steps:
@@ -58,10 +59,12 @@ jobs:
   test:
     working_directory: ~/app
     docker:
-      - image: circleci/android:api-28-alpha
+      - image: circleci/android:api-30
 
     environment:
-      JAVA_TOOL_OPTIONS: -Xmx4096m
+      JAVA_TOOL_OPTIONS: -Xmx2g
+      GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2 -Dkotlin.incremental=false -Dkotlin.compiler.execution.strategy=in-process
+      LINT_PRINT_STACKTRACE: true
 
     steps:
       - checkout
@@ -118,10 +121,10 @@ jobs:
   deploy:
     working_directory: ~/app
     docker:
-      - image: circleci/android:api-28-alpha
+      - image: circleci/android:api-30
 
     environment:
-      JAVA_TOOL_OPTIONS: -Xmx4096m
+      JAVA_TOOL_OPTIONS: -Xmx2g
 
     steps:
       - checkout
