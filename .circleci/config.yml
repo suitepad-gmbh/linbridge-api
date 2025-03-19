@@ -62,7 +62,7 @@ jobs:
       - image: circleci/android:api-30
 
     environment:
-      JAVA_TOOL_OPTIONS: -Xmx4096m
+      JAVA_TOOL_OPTIONS: -Xmx2g
 
     steps:
       - checkout
@@ -122,7 +122,7 @@ jobs:
       - image: circleci/android:api-30
 
     environment:
-      JAVA_TOOL_OPTIONS: -Xmx4096m
+      JAVA_TOOL_OPTIONS: -Xmx2g
 
     steps:
       - checkout
