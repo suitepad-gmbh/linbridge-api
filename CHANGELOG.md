@@ -1,4 +1,6 @@
 # Changelog
+#### 1.1.4
+- FIX: remove unnecessary restrictions
 #### 1.1.3
 - FIX: change protection level on bind permission
 
